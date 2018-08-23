@@ -1,0 +1,58 @@
+{
+  "name": "doubletest",
+  "version": "1.0.0",
+  "description": "bank kata",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamiboers/doubletest.git"
+  },
+  "author": "kami boers",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kamiboers/doubletest/issues"
+  },
+  "homepage": "https://github.com/kamiboers/doubletest#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.2",
+    "babel-plugin-transform-builtin-extend": "^1.1.2",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^23.5.0"
+  },
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "package.json"
+    ]
+  },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": [
+            {
+              "node": "current"
+            }
+          ]
+        }
+      ]
+    ],
+    "plugins": [
+      [
+        "babel-plugin-transform-builtin-extend",
+        {
+          "globals": [
+            "Error"
+          ]
+        }
+      ],
+      [
+        "transform-regenerator"
+      ]
+    ]
+  }
+}
