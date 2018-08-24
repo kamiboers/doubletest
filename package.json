@@ -4,7 +4,8 @@
   "description": "bank kata",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "watch": "jest --no-cache --watch ./*"
   },
   "repository": {
     "type": "git",
