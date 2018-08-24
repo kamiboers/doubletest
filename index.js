@@ -1,4 +1,5 @@
 import { mapNumeralsToDigitStrings } from './constants';
+const fs = require('fs');
 
 export default class AccountNumberParser {
 
@@ -31,7 +32,19 @@ export default class AccountNumberParser {
     }
     return entries.map( entry => this.parseAccountEntry(entry) );
   }
-}
 
+  readFile (filePath) {
+    if (filePath) {
+      const inputLines = fs.readFileSync(filePath).toString().split("\n");
+      const cleanedLines = inputLines.filter((line, index) => (index+1)%4 != 0);
+      const blankLine = ' '*27;
+      const linesWithSpaces = cleanedLines.map( line => line.length ? line : blankLine )
+
+      return this.parseMultipleAccountEntries(linesWithSpaces)
+    }
+    return []
+  }
+
+}
 
 

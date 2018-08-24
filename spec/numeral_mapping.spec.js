@@ -27,7 +27,7 @@ test('mapping list of real numerals to digit returns correct digit string', () =
 });
 
 test('an input of lines is parsed into a list of digits', () => {
-  const oneToNineEntry = [ "    _  _     _  _  _  _  _ ",
+  const oneToNineEntry = [          "    _  _     _  _  _  _  _ ",
                                     "  | _| _||_||_ |_   ||_||_|",
                                     "  ||_  _|  | _||_|  ||_| _|",
                                   ]
@@ -54,13 +54,21 @@ test('multiple entries are parsed into a separate entries of digits', () => {
   expect(result[1]).toEqual('729455188');
 });
 
-
-// parse graphical numerals to digits
-// parse a series of graphical numerals to digits
-// parse list of lines into graphical numerals
-// parse series of entries (set of lines) into separate collections of numerals
-// print series of entries as decimals
-
-// intake small file, read and output
-// intake large file, read and output
+test('sample file can be opened and parsed', () => {
+  const expected = [  '000000000',
+                      '111111111',
+                      '222222222',
+                      '333333333',
+                      '444444444',
+                      '555555555',
+                      '666666666',
+                      '777777777',
+                      '888888888',
+                      '999999999',
+                      '123456789',
+                    ]
+  const result = Parser.readFile('./spec/test_input_1.txt');
+  
+  expect(result).toEqual(expected);
+});
 
