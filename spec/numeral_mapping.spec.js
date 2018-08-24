@@ -37,25 +37,8 @@ test('an input of lines is parsed into a list of digits', () => {
   expect(result).toEqual('123456789');
 });
 
-test('multiple entries are parsed into a separate entries of digits', () => {
-  const multipleEntries =        [
-                                    "    _  _     _  _  _  _  _ ",
-                                    "  | _| _||_||_ |_   ||_||_|",
-                                    "  ||_  _|  | _||_|  ||_| _|",
-                                    " _  _  _     _  _     _  _ ",
-                                    "  | _||_||_||_ |_   ||_||_|",
-                                    "  ||_  _|  | _| _|  ||_||_|",
-                                 ]
-
-  const result = Parser.parseMultipleAccountEntries(multipleEntries);
-
-  expect(result.length).toEqual(2);
-  expect(result[0]).toEqual('123456789');
-  expect(result[1]).toEqual('729455188');
-});
-
-test('sample file can be opened and parsed', () => {
-  const expected = [  '000000000',
+test('sample file can be opened and parsed with a simpler method', () => {
+    const expected = [  '000000000',
                       '111111111',
                       '222222222',
                       '333333333',
@@ -65,10 +48,9 @@ test('sample file can be opened and parsed', () => {
                       '777777777',
                       '888888888',
                       '999999999',
-                      '123456789',
+                      '123456789', 
                     ]
   const result = Parser.readFile('./spec/test_input_1.txt');
   
   expect(result).toEqual(expected);
 });
-

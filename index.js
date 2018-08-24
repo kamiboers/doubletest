@@ -24,25 +24,18 @@ export default class AccountNumberParser {
     return this.mapNumeralListToDigitString(newArray)
   }
 
-  parseMultipleAccountEntries (accountEntries) {
-    const entries = [];
-
-    while (accountEntries.length) {
-      entries.push(accountEntries.splice(0, 3))
-    }
-    return entries.map( entry => this.parseAccountEntry(entry) );
-  }
-
   readFile (filePath) {
     if (filePath) {
-      const inputLines = fs.readFileSync(filePath).toString().split("\n");
-      const cleanedLines = inputLines.filter((line, index) => (index+1)%4 != 0);
-      const blankLine = ' '*27;
-      const linesWithSpaces = cleanedLines.map( line => line.length ? line : blankLine )
+      const inputLines = fs.readFileSync(filePath).toString().split("\n")
+      const outputLines = [];
 
-      return this.parseMultipleAccountEntries(linesWithSpaces)
+      while (inputLines.length) {
+        outputLines.push(this.parseAccountEntry(inputLines.splice(0,3)));
+        inputLines.splice(0,1);
+      }
+
+      return outputLines;
     }
-    return []
   }
 
 }
