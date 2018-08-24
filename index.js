@@ -1,3 +1,9 @@
-const TRUE_VAR = true
+import { mapNumeralsToDigitStrings } from './constants';
 
-export default TRUE_VAR;
+export function mapNumeralToDigit (numeralString) {
+  return mapNumeralsToDigitStrings[numeralString];
+}
+
+export function mapNumeralListToDigitString (numeralList) {
+  return numeralList.map( numeral => mapNumeralToDigit(numeral) ).join('');
+}
