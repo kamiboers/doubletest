@@ -38,19 +38,30 @@ test('an input of lines is parsed into a list of digits', () => {
 });
 
 test('sample file can be opened and parsed with a simpler method', () => {
-    const expected = [  '000000000',
-                      '111111111',
-                      '222222222',
-                      '333333333',
-                      '444444444',
-                      '555555555',
-                      '666666666',
-                      '777777777',
-                      '888888888',
-                      '999999999',
+  const expected = [  '000000000',
+                      '111111111 ILL',
+                      '222222222 ILL',
+                      '333333333 ILL',
+                      '444444444 ILL',
+                      '555555555 ILL',
+                      '666666666 ILL',
+                      '777777777 ILL',
+                      '888888888 ILL',
+                      '999999999 ILL',
                       '123456789', 
                     ]
   const result = Parser.readFile('./spec/test_input_1.txt');
   
   expect(result).toEqual(expected);
+});
+
+test('validity of account number can be determined', () => {
+  const validAccount = '000000051' // expected sum (with multipliers) 11
+  const invalidAccount = '000000052' // expected sum (with multpliers) 12
+  
+  const validResult = Parser.verifyAccountNumber(validAccount);
+  const invalidResult = Parser.verifyAccountNumber(invalidAccount);
+  
+  expect(validResult).toEqual(true);
+  expect(invalidResult).toEqual(false);
 });

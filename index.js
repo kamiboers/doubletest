@@ -11,33 +11,47 @@ export default class AccountNumberParser {
     return numeralList.map( numeral => this.mapNumeralToDigit(numeral) ).join('');
   }
 
-  parseAccountEntry (accountEntry) {
+  parseAccountEntry (accountEntry, outputLineLength=9, numberWidth=3) {
     const chars = accountEntry.join('').split('')
-    const newArray = Array(9).fill('');
+    const newArray = Array(outputLineLength).fill('');
 
     accountEntry.forEach(function(n) {
       for (let i = 0; i < newArray.length; i++) {
-        const splicedChars = chars.splice(0, 3).join('')
+        const splicedChars = chars.splice(0, numberWidth).join('')
         newArray[i] += splicedChars
       }
     })
-    return this.mapNumeralListToDigitString(newArray)
+    const accountNumber = this.mapNumeralListToDigitString(newArray);
+    return this.verifyAccountNumber(accountNumber) ? accountNumber : (accountNumber + ' ILL')
   }
 
-  readFile (filePath) {
+  readFile (filePath, entryLengthLines=3, outputLineLength=9, numberWidth=3) {
     if (filePath) {
       const inputLines = fs.readFileSync(filePath).toString().split("\n")
       const outputLines = [];
-
+      
       while (inputLines.length) {
-        outputLines.push(this.parseAccountEntry(inputLines.splice(0,3)));
-        inputLines.splice(0,1);
+        var accountEntry = inputLines.splice(0, entryLengthLines);
+        var parsedEntry = this.parseAccountEntry(accountEntry, outputLineLength, numberWidth);
+        outputLines.push(parsedEntry);
+        inputLines.splice(0,1); // discard delineating blank line
       }
-
       return outputLines;
     }
   }
 
+  verifyAccountNumber(accountNumberString) {
+    const reversedChars = accountNumberString.split('')
+    var multiplier = accountNumberString.length
+
+    const total = reversedChars.reduce(function (acc, curr) {
+      var sum = acc + parseInt(curr)*multiplier;
+      multiplier--;
+      return sum;
+    }, 0);
+
+    return ( total % 11 === 0 );
+  }
 }
 
 
